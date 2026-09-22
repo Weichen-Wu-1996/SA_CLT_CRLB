@@ -13,7 +13,8 @@ def stochastic_approximation(config, seed: int=42):
     Stochastic Approximation with Polyak-Ruppert average, polynomial decay stepsizes
     Inputs:
     config: configuration, including
-        model: the data-generating model
+        model_name: name of the data-generating model
+        model_param: parameters for the data-generating model
         d: dimension of the parameter
         eta0: initial stepsize
         alpha: stepsize decay speed
@@ -35,7 +36,7 @@ def stochastic_approximation(config, seed: int=42):
     theta_bar = theta.copy()
     saved_theta_bars = np.zeros((n_save, MRP.d))
 
-    model = models[config['model']]
+    model = models.MODEL_LIST[config['model']](config['model_param'])
 
     for t in range(1,T):
 
