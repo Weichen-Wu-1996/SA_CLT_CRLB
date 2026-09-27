@@ -12,3 +12,4 @@
 
 ### Linear Regression with auto-regressive noise
 
+![](results/03/lr_ar_clt_histograms.png)
