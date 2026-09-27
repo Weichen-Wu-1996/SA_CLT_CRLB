@@ -1,0 +1,39 @@
+model: LSA_Gaussian
+model_param:
+  A:
+    - [0.25, 0.03, 0.01]
+    - [0.03, 0.20, 0.02]
+    - [0.01, 0.02, 0.15]
+  b: [0.225, -0.16, 0.065]
+  noise_std: 0.03
+dim: 3
+eta0: 5.0
+alpha: 0.75
+save_iter:
+  - 2
+  - 4
+  - 8
+  - 16
+  - 32
+  - 64
+  - 128
+  - 256
+  - 512
+  - 1024
+  - 2048
+  - 4096
+  - 8192
+  - 16384
+  - 32768
+  - 65536
+  - 131072
+  - 262144
+  - 524288
+  - 1048576
+N_trials: 10000
+plot_iter:
+  - 1024
+  - 32768
+  - 1048576
+plot_crlb: false
+plot_output: lsa_gaussian_clt_histograms.pdf
