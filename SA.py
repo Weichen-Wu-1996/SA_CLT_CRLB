@@ -1,5 +1,4 @@
 import numpy as np
-import random
 from tqdm import tqdm
 from joblib import Parallel, delayed
 import yaml
@@ -20,23 +19,28 @@ def stochastic_approximation(config, seed: int=42):
         alpha: stepsize decay speed
         save_t: list of saved iterations
     '''
-    d = config['dim']
+    d = int(config['dim'])
     theta = np.zeros((d,1))
 
     alpha = config['alpha']
     assert alpha >= 0.5 and alpha <= 1, "alpha must be within [0.5,1]!"
     
-    # set random seed
-    random.seed(seed)
-    
     # Total number of iterations
+    save_iter = list(config['save_iter'])
+    if not save_iter or any(t < 1 for t in save_iter):
+        raise ValueError("save_iter must contain positive iteration numbers")
+    if len(set(save_iter)) != len(save_iter):
+        raise ValueError("save_iter must not contain duplicates")
     T = max(save_iter) + 1
     n_save = len(save_iter)
 
     theta_bar = theta.copy()
-    saved_theta_bars = np.zeros((n_save, MRP.d))
+    saved_theta_bars = np.zeros((n_save, d))
 
-    model = models.MODEL_LIST[config['model']](config['model_param'])
+    model = models.MODEL_LIST[config['model']](config['model_param'], seed=seed)
+    if model.d != d:
+        raise ValueError(f"config dim ({d}) does not match model d ({model.d})")
+    save_positions = {iteration: i for i, iteration in enumerate(save_iter)}
 
     for t in range(1,T):
 
@@ -46,9 +50,8 @@ def stochastic_approximation(config, seed: int=42):
         theta -= etat * G
         theta_bar += (theta - theta_bar) / t
 
-        if t in save_iter:
-            i = save_iter.index(t)
-            saved_theta_bars[i] = theta_bar
+        if t in save_positions:
+            saved_theta_bars[save_positions[t]] = theta_bar.ravel()
 
     return saved_theta_bars
 
@@ -56,7 +59,7 @@ def SA_multi_trials(config):
 
     N_trials = config['N_trials']
     one_trial_results = Parallel(n_jobs=-1)(delayed(stochastic_approximation)(config, seed) for seed in tqdm(range(N_trials)))
-    results = np.concat(one_trial_results)
+    results = np.stack(one_trial_results)
     return results
     
 
