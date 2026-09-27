@@ -1,0 +1,39 @@
+model: LR_AR
+model_param:
+  d: 3
+  m: 2
+  alpha: [0.5, -0.2]
+  sigma: 0.4
+  theta_star: [1.0, -0.5, 0.25]
+  seed: 12
+dim: 3
+eta0: 5.0
+alpha: 0.75
+save_iter:
+  - 2
+  - 4
+  - 8
+  - 16
+  - 32
+  - 64
+  - 128
+  - 256
+  - 512
+  - 1024
+  - 2048
+  - 4096
+  - 8192
+  - 16384
+  - 32768
+  - 65536
+  - 131072
+  - 262144
+  - 524288
+  - 1048576
+N_trials: 10000
+plot_iter:
+  - 1024
+  - 32768
+  - 1048576
+plot_crlb: true
+plot_output: lr_ar_clt_histograms.pdf

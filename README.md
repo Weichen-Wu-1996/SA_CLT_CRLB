@@ -2,8 +2,13 @@
 
 ## Results
 
-### Experiment 01: Markov reward process
+### Linear Stochastic Approximation with Gaussian noise
 
-[Download the PDF figure](results/01/mrp_clt_histograms.pdf)
+![](results/02/lsa_gaussian_clt_histograms.png)
 
-![Empirical distributions and Gaussian CLT limits for the MRP experiment](results/01/mrp_clt_histograms.png)
+### Markov reward process
+
+![](results/01/mrp_clt_histograms.png)
+
+### Linear Regression with auto-regressive noise
+
