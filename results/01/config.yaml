@@ -29,3 +29,9 @@ save_iter:
   - 524288
   - 1048576
 N_trials: 10000
+plot_iter:
+  - 1024
+  - 32768
+  - 1048576
+plot_crlb: false
+plot_output: mrp_clt_histograms.pdf
