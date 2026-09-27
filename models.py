@@ -55,6 +55,70 @@ class MRP:
         )
         return (td_residual * phi).reshape(self.d, 1)
 
+    def get_score(self, sample):
+        """Return the transition score with respect to psi at the true MRP."""
+        previous_state, current_state = sample
+        values = self.Phi @ self.theta_star
+        score = np.zeros(self.S)
+        score[previous_state] = (
+            values[current_state] - self.P[previous_state] @ values
+        )
+        return score
+
+    def get_td_jacobian(self):
+        """Return J = E[phi(s)(phi(s) - gamma phi(s'))^T]."""
+        state_weights = self.mu[:, None] * self.Phi
+        return self.Phi.T @ state_weights - self.gamma * (
+            state_weights.T @ self.P @ self.Phi
+        )
+
+    def get_fisher_information(self):
+        """Return E[S* S*^T] for one stationary transition.
+
+        The score coordinate associated with state s is nonzero only when the
+        previous state is s, so the transition Fisher information is diagonal.
+        """
+        values = self.Phi @ self.theta_star
+        conditional_mean = self.P @ values
+        conditional_second_moment = self.P @ (values ** 2)
+        conditional_variance = conditional_second_moment - conditional_mean ** 2
+        return np.diag(self.mu * np.maximum(conditional_variance, 0.0))
+
+    def get_gradient_long_run_variance(self):
+        """Return the long-run covariance Gamma_tilde of G*(X_t).
+
+        Proposition III.10 gives G* = -gamma Phi^T S*.  Since the transition
+        scores are martingale differences, all nonzero-lag covariances vanish.
+        """
+        fisher = self.get_fisher_information()
+        gamma_tilde = self.gamma ** 2 * self.Phi.T @ fisher @ self.Phi
+        return (gamma_tilde + gamma_tilde.T) / 2
+
+    @staticmethod
+    def _sandwich(jacobian, middle):
+        """Compute J^{-1} middle J^{-T} without forming J^{-1}."""
+        left = np.linalg.solve(jacobian, middle)
+        covariance = np.linalg.solve(jacobian, left.T).T
+        return (covariance + covariance.T) / 2
+
+    def calculate_clt_variance(self):
+        """Return the asymptotic covariance of sqrt(T)(theta_bar-theta_star)."""
+        return self._sandwich(
+            self.get_td_jacobian(), self.get_gradient_long_run_variance()
+        )
+
+    def calculate_crlb(self):
+        """Return the asymptotic Markov CRLB for T Var(theta_hat).
+
+        This implements Equation (III.5) using the Moore-Penrose inverse of
+        the single-transition Fisher information.
+        """
+        jacobian = self.get_td_jacobian()
+        fisher = self.get_fisher_information()
+        derivative = -self.gamma * self.Phi.T @ fisher
+        middle = derivative @ np.linalg.pinv(fisher) @ derivative.T
+        return self._sandwich(jacobian, middle)
+
 
 class LSA_Gaussian:
     def __init__(self, model_param, seed=None):

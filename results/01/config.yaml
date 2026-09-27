@@ -28,4 +28,4 @@ save_iter:
   - 262144
   - 524288
   - 1048576
-N_trials: 1
+N_trials: 10000

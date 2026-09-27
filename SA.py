@@ -58,8 +58,11 @@ def stochastic_approximation(config, seed: int=42):
 def SA_multi_trials(config):
 
     N_trials = config['N_trials']
-    one_trial_results = Parallel(n_jobs=-1)(delayed(stochastic_approximation)(config, seed) for seed in tqdm(range(N_trials)))
-    results = np.stack(one_trial_results)
+    completed_trials = Parallel(n_jobs=-1, return_as="generator")(
+        delayed(stochastic_approximation)(config, seed)
+        for seed in range(N_trials)
+    )
+    results = np.stack(list(tqdm(completed_trials, total=N_trials)))
     return results
     
 
