@@ -60,34 +60,34 @@ We impose the following conditions.
 1. **Stable mean dynamics.** The matrix $-A^\star$ is Hurwitz. Equivalently,
    there is a matrix $U\succ0$ and a constant $\lambda>0$ such that
 
-   $$
-   (A^\star)^\top U+UA^\star\succeq\lambda U.
-   $$
+$$
+(A^\star)^\top U+UA^\star\succeq\lambda U.
+$$
 
 2. **Geometrically decaying linear filter.** There are constants $C>0$ and
    $\rho\in(0,1)$ such that
 
-   $$
-   \|H_k\|\leq C\rho^k,
-   \qquad k\geq0.
-   $$
+$$
+\|H_k\|\leq C\rho^k,
+\qquad k\geq0.
+$$
 
 3. **Nondegenerate innovations.** The innovation covariance satisfies
    $\Sigma_\varepsilon\succ0$.
 
 4. **Nonsingular transfer function.** The transfer function
 
-   $$
-   H(z)=\sum_{k=0}^{\infty}H_kz^k
-   $$
+$$
+H(z)=\sum_{k=0}^{\infty}H_kz^k
+$$
 
    is nonsingular on the unit circle.
 
 5. **Polynomial stepsizes.** The stepsize exponent satisfies
 
-   $$
-   \frac12<\alpha<1.
-   $$
+$$
+\frac12<\alpha<1.
+$$
 
 These assumptions can be weakened, but they provide a convenient setting in
 which the dependence and moment bounds are transparent.
