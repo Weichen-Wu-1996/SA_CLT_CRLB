@@ -7,9 +7,9 @@ Let
 $$
 \xi_t=
 \begin{bmatrix}
-\operatorname{vec}(A_t)\\
+\text{vec}(A_t)\\
 b_t
-\end{bmatrix}
+\end{bmatrix}op
 =\psi^\star+u_t,
 $$
 
@@ -18,7 +18,7 @@ where
 $$
 \psi^\star=
 \begin{bmatrix}
-\operatorname{vec}(A^\star)\\
+\text{vec}(A^\star)\\
 b^\star
 \end{bmatrix}
 $$
@@ -143,7 +143,7 @@ The long-run covariance of $u_t$ is
 
 $$
 \Omega_\xi
-=\sum_{h=-\infty}^{\infty}\operatorname{Cov}(u_0,u_h)
+=\sum_{h=-\infty}^{\infty}\text{Cov}(u_0,u_h)
 =H(1)\Sigma_\varepsilon H(1)^\top,
 $$
 
