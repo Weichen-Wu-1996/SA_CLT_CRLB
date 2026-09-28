@@ -9,7 +9,7 @@ $$
 \begin{bmatrix}
 \text{vec}(A_t)\\
 b_t
-\end{bmatrix}op
+\end{bmatrix}
 =\psi^\star+u_t,
 $$
 
