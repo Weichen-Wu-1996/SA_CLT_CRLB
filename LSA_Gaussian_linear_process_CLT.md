@@ -266,7 +266,7 @@ $$
 \|\Delta_t\|_U^2
 =\|F_t\Delta_{t-1}\|_U^2
 -2\eta_t\langle F_t\Delta_{t-1},W_t\rangle_U
-+\eta_t^2\|W_t\|_U^2. \tag{5.1}
++\eta_t^2\|W_t\|_U^2.
 $$
 
 The first term contracts. For the other two terms, replace
@@ -278,24 +278,24 @@ $$
 D_{t,\ell_t}
 =\Delta_{t-1}-\Delta_{t-\ell_t}
 =-\sum_{j=t-\ell_t+1}^{t-1}
-\eta_j\bigl(A^\star\Delta_{j-1}+Z_j\Delta_{j-1}+\zeta_j\bigr). \tag{5.2}
+\eta_j\bigl(A^\star\Delta_{j-1}+Z_j\Delta_{j-1}+\zeta_j\bigr).
 $$
 
-If the products in (5.2) have the required moments, the argument in the
+If the products in this increment expansion have the required moments, the argument in the
 current paper yields a recursion of the schematic form
 
 $$
 m_{2,t}
 \leq (1-c\eta_t)m_{2,t-1}
 +C\eta_t^2\{1+\ell_t^2(1+\overline m_{2,t})\}
-+C\eta_t\rho^{\ell_t}, \tag{5.3}
++C\eta_t\rho^{\ell_t},
 $$
 
 where $m_{2,t}=\mathbb E\|\Delta_t\|_U^2$ and $\overline m_{2,t}$ is a
-maximum over the blocking window. Closing (5.3) gives a bound of the form
+maximum over the blocking window. Closing this recursion gives a bound of the form
 
 $$
-m_{2,t}=O\bigl(\eta_t\log^r t\bigr) \tag{5.4}
+m_{2,t}=O\bigl(\eta_t\log^r t\bigr)
 $$
 
 for a fixed $r$; the current paper obtains $r=2$ in its uniformly Lipschitz
@@ -312,22 +312,22 @@ $$
 \|x+y\|_U^4
 \leq \|x\|_U^4
 +4\|x\|_U^2\langle x,y\rangle_U
-+C\bigl(\|x\|_U^2\|y\|_U^2+\|y\|_U^4\bigr). \tag{5.5}
++C\bigl(\|x\|_U^2\|y\|_U^2+\|y\|_U^4\bigr).
 $$
 
-After blocking, (5.5) contains quantities such as
+After blocking, this fourth-moment expansion contains quantities such as
 
 $$
-\mathbb E\bigl[\|Z_t\|^4\|D_{t,\ell_t}\|^4\bigr]. \tag{5.6}
+\mathbb E\bigl[\|Z_t\|^4\|D_{t,\ell_t}\|^4\bigr].
 $$
 
-But an $L^4$ bound for (5.2) requires an $L^4$ bound for
+But an $L^4$ bound for the blocked increment requires an $L^4$ bound for
 $Z_j\Delta_{j-1}$. Without independence between these two factors, Hölder's
 inequality gives
 
 $$
 \|Z_j\Delta_{j-1}\|_{L^4}
-\leq \|Z_j\|_{L^8}\|\Delta_{j-1}\|_{L^8}. \tag{5.7}
+\leq \|Z_j\|_{L^8}\|\Delta_{j-1}\|_{L^8}.
 $$
 
 Thus a fourth-moment induction asks for an eighth moment. Repeating the same
@@ -345,13 +345,14 @@ integer $q\geq1$ there are constants $C_q,r_q<\infty$ such that
 
 $$
 \mathbb E\|\Delta_t\|^{2q}
-\leq C_q\eta_t^q\log^{r_q}t. \tag{5.8}
+\leq C_q\eta_t^q\log^{r_q}t.
 $$
 
 This needs a random-coefficient stability argument for the product of the
 matrices $I-\eta_t(A^\star+Z_t)$; applying Hölder separately at each moment
 order is insufficient. One possible proof uses a single exponential
-Lyapunov estimate, from which (5.8) follows for all fixed $q$.
+Lyapunov estimate, from which the displayed simultaneous moment bound follows
+for all fixed $q$.
 
 **Route B: Gaussian localization.** Let
 
@@ -382,7 +383,7 @@ Gaussian tails imply, for fixed $q$ and a constant $c_q>0$,
 $$
 \left\|\max_{1\leq t\leq T}
 \|u_t-u_t^{(K_T)}\|\right\|_{L^q}
-\leq C_qT^{1/q}e^{-c_qK_T^2}. \tag{5.9}
+\leq C_qT^{1/q}e^{-c_qK_T^2}.
 $$
 
 Thus the coupling error is smaller than any chosen negative power of $T$ when
@@ -390,13 +391,13 @@ $C_0$ is large enough. The localized causal process has a deterministic
 Lipschitz envelope of order $\sqrt{\log T}$, so the existing Lyapunov and
 blocking proof can be rerun up to time $T$, with additional logarithmic
 factors. A complete localization lemma must track its constants uniformly in
-$T$ and propagate (5.9) through the two SA recursions. This finite-horizon
+$T$ and propagate this coupling estimate through the two SA recursions. This finite-horizon
 triangular-array step is essential; simply conditioning on a high-probability
 event would destroy the independence used by blocking.
 
 Route B is likely the shorter path if the goal is only the CLT. Route A gives
 a stronger unconditional moment theorem. In the remainder of this note,
-“moment control” means either (5.8), or the corresponding finite-horizon
+“moment control” means either the simultaneous moment bound above, or the corresponding finite-horizon
 localized bounds plus an $o_p(T^{-1/2})$ coupling error. Establishing one of
 these statements is the first substantial new proof obligation beyond the
 current paper.
@@ -593,7 +594,7 @@ The six items in the earlier draft do not have equal status.
 | --- | --- |
 | 1. Lyapunov contraction | Already proved in the current paper and reusable without a substantive change. |
 | 2. Logarithmic blocking | The construction and tail estimates are already present. They extend naturally to the causal linear-process representation. |
-| 3. Iterate moments | This is the first real new burden. A fourth-moment recursion by itself does not close; Section 5.3 identifies the resulting moment hierarchy. One must prove either the simultaneous bound (5.8) or a uniform finite-horizon localization lemma. |
+| 3. Iterate moments | This is the first real new burden. A fourth-moment recursion by itself does not close; Section 5.3 identifies the resulting moment hierarchy. One must prove either the simultaneous moment bound in Section 5.4 or a uniform finite-horizon localization lemma. |
 | 4. Centered multiplicative remainder | The current paper's covariance-blocking calculation should apply after Item 3 supplies the needed product bounds, with extra logarithmic factors allowed. |
 | 5. Dependence bias | The same lag decomposition is useful, but its random-Lipschitz products also depend on Item 3. The target rate is $o(T^{-1/2})$ after summation. |
 | 6. Gaussian Fisher information | This is separate from SA stability and requires the standard Toeplitz/inverse-covariance limit for the mean parameter. |
