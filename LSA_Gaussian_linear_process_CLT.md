@@ -288,7 +288,7 @@ After summation,
 
 $$
 A^\star\frac1{\sqrt T}\sum_{t=1}^T\Delta_{t-1}
-=B_T-R_T-rac1{\sqrt T}\sum_{t=1}^TMu_t,
+=B_T-R_T- \frac1{\sqrt T}\sum_{t=1}^TMu_t,
 $$
 
 where
