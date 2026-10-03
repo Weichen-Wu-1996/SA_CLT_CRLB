@@ -55,15 +55,29 @@ def stochastic_approximation(config, seed: int=42):
 
     return saved_theta_bars
 
+
+def _run_trial(config, seed):
+    """Run one trial and retain its seed for deterministic output ordering."""
+    return seed, stochastic_approximation(config, seed)
+
+
 def SA_multi_trials(config):
 
     N_trials = config['N_trials']
-    completed_trials = Parallel(n_jobs=-1, return_as="generator")(
-        delayed(stochastic_approximation)(config, seed)
+    completed_trials = Parallel(n_jobs=-1, return_as="generator_unordered")(
+        delayed(_run_trial)(config, seed)
         for seed in range(N_trials)
     )
-    results = np.stack(list(tqdm(completed_trials, total=N_trials)))
-    return results
+    results_by_seed = [None] * N_trials
+    for seed, result in tqdm(
+        completed_trials,
+        total=N_trials,
+        unit="trial",
+        smoothing=0,
+        dynamic_ncols=True,
+    ):
+        results_by_seed[seed] = result
+    return np.stack(results_by_seed)
     
 
 @click.command()
